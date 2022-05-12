@@ -56,6 +56,14 @@ const users= [
 ]
 
 app.get('/users',(req, res) =>{
+    const search = req.query.search;
+    if(search){
+        const searchresult = users.filter(user => user.name.toLocaleLowerCase().includes(search));
+        res.send(searchresult)
+    }
+    else{
+        res.send(users)
+    }
     res.send(users)
 });
 
@@ -64,6 +72,14 @@ app.get('/users/:id', (req, res) =>{
     const user = users[id]
     res.send(user)
     console.log(req.params.id)
+})
+
+app.get('/fruits', (req, res) =>{
+    res.send(['mango', 'orange', 'banana', 'apple'])
+})
+
+app.get('/fruits/mangoes/fazli', (req, res) =>{
+    res.send('yammy yammy mangggo')
 })
 
 app.listen(port, () =>{
